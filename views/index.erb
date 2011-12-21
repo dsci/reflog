@@ -1,0 +1,88 @@
+<div id='commit_box'>
+	<h6>Latest Commit to the <%=@branch%> Branch</h6>
+	<p>
+		<span class="label notice">Commit Message:</span> 
+		<%=@commit_message%>
+		<dl>
+			<dt>Author</dt>
+			<dd><img src='<%=@author_icon%>' class='author'/>  <%=@head.author%> @ <%=@committed_date%></dd>
+			<dt>Commit id</dt>
+			<dd><%=@head.id%></dd>
+		</dl>
+	</p>
+</div>
+<ul class="tabs" id='git_navigation' data-tabs="tabs">
+  <li class="active"><a href="#home">Tree</a></li>
+	<li><a href='#commits'>Commits</a></li>
+	<li class="dropdown" data-dropdown="dropdown">
+	   <a href="#" class="dropdown-toggle">Branches</a>
+	   <ul class="dropdown-menu">
+		 	<%@branches.each do |branch|%>
+		 		<li><a href="/tree/<%=branch%>"><%=branch%></a></li>
+		 	<%end%>
+	  </ul>
+	</li>
+	<li class="dropdown" data-dropdown="dropdown">
+	   <a href="#" class="dropdown-toggle">Tags</a>
+	   <ul class="dropdown-menu">
+		 	<%@tags.each do |tag|%>
+		 		<li><a href="#fat"><%=tag%></a></li>
+		 	<%end%>
+	  </ul>
+	</li>
+</ul>
+<div id="my-tab-content" class="tab-content">
+
+	<div id="home" class="tab-pane active">
+		<h6><%=@branch%> : <%=@tree_path%></h6>
+		<table class="bordered-table zebra-striped">
+		   <thead>
+		     <tr>
+					<th></th>
+					<th>Name</th>
+		      <th>#</th>
+		     </tr>
+		   </thead>
+		   <tbody>
+				<%@directories.each do |dir|%>
+					<tr>
+						<td class='icon'><img src='https://a248.e.akamai.net/assets.github.com/images/icons/dir.png?1315937721' /></td>
+						<td><a href='/tree/<%=@branch%><%=@tree_path%><%=dir[:name]%>'><%=dir[:name]%>/</a></td>
+						<td><%=dir[:id]%></td>
+					</tr>
+				<%end%>
+				<%@files.each do |file| %>
+					<tr>
+						<td class='icon'><img src='https://a248.e.akamai.net/assets.github.com/images/icons/txt.png?1315937721' /></td>
+							<td><a href='/blob/<%=@branch%><%=@tree_path%><%=file[:name]%>'><%=file[:name]%></a></td>
+							<td><%=file[:id]%></td>
+						</td>
+					</tr>
+				<%end%>
+		   </tbody>
+		</table>
+	</div>
+	<div id="commits" class="tab-pane">
+		<h6>Latest 10 commmits for <%=@branch%></h6>
+		<table class="bordered-table zebra-striped">
+		   <thead>
+		     <tr>
+				<th>#</th>
+				<th>Message</th>
+				<th>Author</th>
+				<th>When?</th>
+		     </tr>
+		   </thead>
+		  	<tbody>
+				<%@commits.each do |commit|%>
+				<tr>
+					<td><a href="/commit/<%=commit.id%>"><%=commit.id%></a></td>
+					<td><%=commit.message.slice(0..50)%>...</td>
+					<td><%=commit.author.name%></td>
+					<td><%=commit.committed_date.ago_in_words%></td>
+				</tr>
+				<%end%>
+			</tbody>
+		</table>
+	</div>
+</div>

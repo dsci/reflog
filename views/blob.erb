@@ -1,0 +1,29 @@
+
+<div id='commit_box'>
+	<h6>Latest Commit to the <%=@branch%> Branch</h6>
+	<p>
+		<span class="label notice">Commit Message:</span> 
+		<%=@commit_message%>
+		<dl>
+			<dt>Author</dt>
+			<dd><img src='<%=@author_icon%>' class='author'/>  <%=@head.author%> @ <%=@committed_date%></dd>
+			<dt>Commit id</dt>
+			<dd><%=@head.id%></dd>
+		</dl>
+	</p>
+</div>
+<div class="alert-message block-message info file_view_message">
+    <a class="close" href="#">×</a>
+    <p><strong>Heads up!</strong> This is the file view of <strong><%=session[:path]%>/<%=@name%></strong> on branch <em><%=@branch%></em>.</p>
+    <div class="alert-actions">
+      <a class="btn small" href="/download/blob/<%=@blob.id%>/<%=@name%>">Download this file</a>
+    </div>
+</div>
+<div id='blob_view'>
+	
+	<pre class="prettyprint">
+		
+		<%=@blob.data%>
+	
+	</pre>
+</div>

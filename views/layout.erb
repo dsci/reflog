@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Reflog - Git browser</title>
+    <script src="/lib/jquery-1.7.min.js" type="text/javascript"></script>
+    <script src="/lib/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap-alerts.js"></script>
+		<script src="/lib/bootstrap/js/bootstrap-tabs.js"></script>
+		<script type="text/javascript" src="/lib/prettify.js"></script>
+		<link href="/lib/prettify.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="/lib/grit.css">
+  </head>
+  <body style="padding-top: 50px;" onload="prettyPrint()">
+	<section id="navigation">
+	    <div class="topbar-wrapper" style="z-index: 5;">
+	      <div class="topbar" data-dropdown="dropdown">
+	        <div class="topbar-inner">
+	          <div class="container">
+	            <h3><a href="/">Reflog</a></h3>
+	            <ul class="nav">
+								<li><a href="#">About</a></li>
+	              <li class="dropdown">
+	                <a href="#" class="dropdown-toggle"><%#=username%></a>
+	                <ul class="dropdown-menu">
+		              <li><a href="/login">Login</a></li>
+		              <li><a href="/logout">Logout</a></li>
+	                </ul>
+	              </li>
+	            </ul>
+	          </div>
+	        </div><!-- /topbar-inner -->
+	      </div><!-- /topbar -->
+	    </div><!-- /topbar-wrapper -->
+	  </section>
+	<div class="container">
+		<%if @error then %>
+			<div class="alert-message error"><%=@error%></div>
+		<% end %>
+		<h2><%=@git_url%></h2>
+		<h6><%=@description%></h6>
+    	<%= yield %>
+	</div>
+	
+	<footer>
+	<div class="container">
+		<div class="row">
+		  <div class="span5">
+		    <address>
+			  	<strong>Datenspiel GmbH.</strong><br>
+			  	Neumarkt 26<br>
+			  	04109 Leipzig<br>
+			  	<abbr title="email">email:</abbr> info@datenspiel.com
+				</address>
+		  </div>
+		  <div class="span11">
+		    <blockquote><p>Was ist Reichtum? Für jemanden ist ein altes Hemd schon Reichtum. Ein anderer ist mit zehn Millionen arm.</p>
+					<small>Franz Kafka</small>
+				</blockquote>
+		  </div>
+		</div>
+	</div>
+	</footer>
+	
+	<script>
+	  $(function () {
+	    $('.tabs').tabs()
+	  })
+	</script>
+  </body>
+</html>
