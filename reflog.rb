@@ -13,7 +13,7 @@ rescue Bundler::GemNotFound
     "Did you run `bundle install`?"
 end
 
-module GritDemo 
+module Reflog
 
   class GridConfig
     
