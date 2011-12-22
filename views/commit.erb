@@ -1,0 +1,60 @@
+<div id='commit_box'>
+	<h6>You're looking at commit: <%=@commit.sha%></h6>
+	<p>
+		<span class="label notice">Commit Message: </span> <%=@commit.message%> 
+		<p>
+			<span class="label important">Changes:</span>
+		
+			<ul class="unstyled">
+				<%@commit.stats.to_diffstat.each do |stat|%>
+				<li>
+					<em><%=stat.filename%></em> with <strong><%=stat.additions%> additions</strong> and <strong><%=stat.deletions%> deletions</strong> 
+				</li>
+				<%end%>
+			</ul>
+		</p>
+		<dl>
+			<dt>Author</dt>
+			<dd><img src='<%=@author_icon%>' class='author'/>  <%=@commit.author%> @ <%=@committed_date%></dd>
+		</dl>
+	</p>
+</div>
+<div id="commit_files" class="tab-pane">
+	<table class="bordered-table zebra-striped">
+	   <thead>
+	     <tr>
+			<th>Path</th>
+	     </tr>
+	   </thead>
+	  	<tbody>
+			<%@paths.each do |commit|%>
+			<tr>
+				<td>
+					<%=commit[:a_path]%>
+				</td>
+			</tr>
+			<%end%>
+		</tbody>
+	</table>
+
+	
+</div>
+<div id="commit_change_view">
+	<%@paths.each do |commit|%>
+		<table class="bordered-table zebra-striped">
+		   <thead>
+		     <tr>
+				<th>File: <%=commit[:a_path]%></th>
+		     </tr>
+		   </thead>
+		  	<tbody>
+				<tr>
+					<td><pre class="prettyprint">
+							<%=commit[:changed]%>
+						</pre>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<%end%>
+</div>

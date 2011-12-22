@@ -37,7 +37,7 @@
 		<%if @error then %>
 			<div class="alert-message error"><%=@error%></div>
 		<% end %>
-		<h2><%=@git_url%></h2>
+		<h2><a href="/"><%=@git_url%></a></h2>
 		<h6><%=@description%></h6>
     	<%= yield %>
 	</div>

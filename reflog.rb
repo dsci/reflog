@@ -91,6 +91,12 @@ module Reflog
       def commits_for_branch(branch_name)
         @commits = repo.commits(branch_name)
       end
+      
+      def cut_diff(diff)
+        return diff.split("@@").last
+      rescue => e
+        return "Changes not showable - maybe binary?"
+      end
     end
     
     configure do
@@ -156,7 +162,20 @@ module Reflog
     
     get '/commit/:id' do
       @commit = repo.commit(params[:id])
-      p @commit.diffs
+      author_icon(@commit)
+      @head = @commit
+      formatted_commit_data
+      @paths = [];
+      @commit.diffs.each do |diff|
+        diff_obj = {
+          :a_path => diff.a_path,
+          :b_path => diff.a_path,
+          :changed => cut_diff(diff.diff)
+        }
+        @paths << diff_obj
+      end
+      @paths.uniq!
+      erb :commit
     end
     
     get '/download/blob/:id/:name' do
